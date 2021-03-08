@@ -1,6 +1,6 @@
 {
-    "name" : "uniappRTC2",
-    "appid" : "__UNI__8D3B6AB",
+    "name" : "anyRTC音视频集成插件示例",
+    "appid" : "",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -54,22 +54,7 @@
                 "ad" : {}
             }
         },
-        "nativePlugins" : {
-            "AR-RtcModule" : {
-                "__plugin_info__" : {
-                    "name" : "anyRTC音视频SDK插件",
-                    "description" : "anyRTC音视频插件提供音视频功能，支持Android、iOS。",
-                    "platforms" : "Android,iOS",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=3661",
-                    "android_package_name" : "",
-                    "ios_bundle_id" : "io.dcloud.HBuilder",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "3661",
-                    "parameters" : {}
-                }
-            }
-        }
+        "nativePlugins" : {}
     },
     /* 快应用特有相关 */
     "quickapp" : {},

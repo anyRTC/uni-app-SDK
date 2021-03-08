@@ -9,11 +9,10 @@
 
 			<view class="setrole">
 
-				<button type="default" class="button" :class="role == 1? 'active': ''" @click="setClientRole(1)"><text class="text button_text"
+				<button type="default" :class="role == 1? 'active': 'button'" @click="setClientRole(1)"><text class="text button_text"
 					 :class="role == 1? 'activetext': ''">我是主播</text></button>
 
-				<button type="default" class="button" :class="role == 2? 'active': ''" @click="setClientRole(2)"><text class="text"
-					 :class="role == 2? 'activetext': ''">我是游客</text></button>
+				<button type="default" :class="role == 2? 'active': 'button'" @click="setClientRole(2)"><text class="text" :class="role == 2? 'activetext': ''">我是游客</text></button>
 			</view>
 
 			<view class="join">
@@ -106,19 +105,16 @@
 			return {
 				//anyRTC 为 App 开发者签发的 App ID。每个项目都应该有一个独一无二的 App ID。如果你的开发包里没有 App ID，请从anyRTC官网(https://www.anyrtc.io)申请一个新的 App ID
 				appid: "请输入appid",
-				chanel: "",
+				channel: "",
 				uid: "",
 				role: 1, //角色 主播-游客
 
 				videoShow: false, //视频展示
 				// videoShowBg: true, //背景展示
-				promptText: "等待中，请稍后。。。",
+				promptText: "loading...",
 
 				PeerVideoUser: [], //用户视频加入存储
 				PeerVideoUserStyle: "video_local", //用户视频加入样式
-
-				initcallback: false, //callback状态标识
-				initcreate: false, //创建实例
 
 				// 本地
 				audioSwitch: "open", //音频开关 
@@ -133,12 +129,14 @@
 				// closeArray: []
 			}
 		},
+		// 页面初始加载（仅执行一次）
 		onReady() {
-			this.initcallback ? '' : this.callbackFn();
+			// 初始化
+			this.init();
 		},
+
 		watch: {
 			PeerVideoUser: function(newName) {
-
 				if (this.role == 2) {
 					newName = newName.filter((x) => x !== this.uid);
 				}
@@ -152,13 +150,14 @@
 				} else if (newName.length > 9 && newName.length < 17) {
 					this.PeerVideoUserStyle = "video_local_3"
 				} else if (newName.length == 0) {
-					this.role == 2 ? this.promptText = "暂无主播播放视频" : this.promptText = "等待中，请稍后。。。"
+					this.role == 2 ? this.promptText = "暂无主播播放视频" : this.promptText = "loading..."
 				}
 			}
 		},
 		methods: {
 			// 初始化
 			async init() {
+				// 查看权限
 				if (uni.getSystemInfoSync().platform == 'ios') {
 					//查看相机权限
 					await this.requestAndroidPermission("camera", 'ios');
@@ -171,34 +170,32 @@
 					//查看录音权限
 					await this.requestAndroidPermission("android.permission.RECORD_AUDIO", 'android');
 				}
-				// this.promptFn("info", this.appid)
+				// 初始化 setCallBack
+				await this.callbackFn();
+				// 初始化 create
 
-				// setTimeout(() => {
 				await RtcModule.create({
 					"appId": this.appid
 				}, (res) => {
-					// this.promptFn("info", res.code)
-				});
 
+				});
 				this.uid = this.randomFn(6);
-				// }, 1000)
 			},
 			//设置角色
 			setClientRole(num) {
 				this.role = num;
 				//设置直播场景下的用户角色
 				RtcModule.setClientRole({
-					"role": Number(num)
+					"role": num
 				}, (ret) => {});
 			},
 
 			//加入频道 跳转到视频
 			async join() {
 				uni.showLoading({
-				    title: '加载中',
-						mask: true
+					title: '加载中',
+					mask: true
 				});
-				await this.init();
 				//加入房间
 				await RtcModule.joinChannel({
 					"token": "",
@@ -230,7 +227,7 @@
 			// 视频
 			vedioSwitchFn() {
 				let open = true;
-				
+
 				if (this.vedioSwitch == "open") {
 					this.vedioSwitch = "colse";
 					open = false;
@@ -261,7 +258,7 @@
 					"enabled": open
 				}, (res) => {
 					if (res.code == 0) {
-						open == "false" ? this.promptFn("warn", "关闭本地音频采集") : this.promptFn("info", "开启本地音频采集");
+						open == false ? this.promptFn("warn", "关闭本地音频采集") : this.promptFn("info", "开启本地音频采集");
 					}
 				});
 			},
@@ -283,7 +280,7 @@
 							res.errorCode != 18 ? this.promptFn("error", res.errorCode) : '';
 							break;
 						case "onJoinChannelSuccess": //用户加入成功
-               uni.hideLoading();
+							uni.hideLoading();
 							this.role == 1 ? this.PeerVideoUser.push(res.uid) : "";
 							this.videoShow = true;
 							setTimeout(() => {
@@ -361,23 +358,28 @@
 				return randomString;
 			},
 			// 离开清空
-			closeAll() {
-        RtcModule.destroyRtc((res) => {});
-				
-				this.uid = this.randomFn(6);
-
+			async closeAll() {
+				// 销毁实例
+				await RtcModule.destroyRtc((res) => {});
 				this.videoShow = false; //视频展示
 				// this.videoShowBg = true; //背景展示
-				this.promptText = "等待中，请稍后。。。";
+				this.promptText = "loading...";
 
-				this.initcallback = true; //callback状态标识
-				this.initcreate = true; // 创建实例
-
-				this.PeerVideoUser = [], //远端用户加入存储
-
-					// 本地
-					this.audioSwitch = "open"; //音频开关 
+				this.PeerVideoUser = []; //远端用户加入存储
+				// 本地
+				this.audioSwitch = "open"; //音频开关 
 				this.vedioSwitch = "open"; //视频开关
+				// 重新创建实例
+				await this.init();
+			  // 如果需要跳转其它页面请按下边步骤
+				// await uni.redirectTo({
+				// 	url: '..',
+				// 	success: () => {
+				// 		RtcModule.destroyRtc((res) => {
+				// 			console.log("页面销毁", res.code);
+				// 		});
+				// 	}
+				// });
 
 			},
 			//查看授权
@@ -439,14 +441,19 @@
 		color: #B4B5BE;
 	}
 
-	.active {
-		border-color: #40a3fb;
-	}
+
 
 	.activetext {
 		color: #fff;
 	}
 
+	.active {
+		padding: 10px 70rpx;
+		border-radius: 6px;
+		border-width: 2px;
+		border-color: #40a3fb;
+		background-color: #0A1621;
+	}
 
 	.join {
 		padding: 20px;
