@@ -201,189 +201,209 @@ setupRemoteVideo | uid(string)、channelId(string)、renderMode(int)、mirrorMod
 {"engineEvent": "onFirstRemoteVideoFrame", "uid": "123", "width": 480, "height": 640, "elapsed": 0}
 ```
 
-21.本地或远端视频大小和旋转信息发生改变回调(onVideoSizeChanged)
+21.音频发布状态改变回调(onAudioPublishStateChanged)
+```
+{"engineEvent": "onAudioPublishStateChanged", "channel": "909090", "oldState": 0, "newState": 1, "elapseSinceLastState": 0}
+```
+
+22.视频发布状态改变回调(onVideoPublishStateChanged)
+```
+{"engineEvent": "onVideoPublishStateChanged", "channel": "909090", "oldState": 0, "newState": 1, "elapseSinceLastState": 0}
+```
+
+23.音频订阅状态发生改变回调(onAudioSubscribeStateChanged)
+```
+{"engineEvent": "onAudioSubscribeStateChanged", "channel": "909090", "oldState": 0, "newState": 1, "elapseSinceLastState": 0}
+```
+
+24.视频订阅状态发生改变回调(onVideoSubscribeStateChanged)
+```
+{"engineEvent": "onVideoSubscribeStateChanged", "channel": "909090", "oldState": 0, "newState": 1, "elapseSinceLastState": 0}
+```
+
+25.本地或远端视频大小和旋转信息发生改变回调(onVideoSizeChanged)
 ```
 {"engineEvent": "onVideoSizeChanged", "uid": "123", "width": 480, "height": 640, "rotation": 0}
 ```
 
-22.远端视频状态发生改变回调(onRemoteVideoStateChanged)
+26.远端视频状态发生改变回调(onRemoteVideoStateChanged)
 ```
 {"engineEvent": "onRemoteVideoStateChanged", "uid": "123", "state": 0, "reason": 0, "elapsed": 0}
 ```
 
-23.地视频状态发生改变回调(onLocalVideoStateChanged)
+27.地视频状态发生改变回调(onLocalVideoStateChanged)
 ```
 {"engineEvent": "onLocalVideoStateChanged", "state": 0, "error": 0}
 ```
 
-24.通话中远端音频流的统计信息回调(onRemoteAudioStats)
+28.通话中远端音频流的统计信息回调(onRemoteAudioStats)
 ```
 {"engineEvent": "onRemoteAudioStats", "uid": "123", "quality": 0, "networkTransportDelay": 0, "jitterBufferDelay": 0, "audioLossRate": 0, "numChannels": 0, "receivedSampleRate": 0, "receivedBitrate": 0, "totalFrozenTime": 0, "frozenRate": 0}
 ```
 
-25.当前通话统计回调。 该回调在通话或直播中每两秒触发一次。(onRtcStats)
+29.当前通话统计回调。 该回调在通话或直播中每两秒触发一次。(onRtcStats)
 ```
 {"engineEvent": "onRtcStats", "duration": 0, "txBytes": 0, "rxBytes": 0, "txAudioBytes": 0, "txVideoBytes": 0,
  "rxAudioBytes": 0, "rxVideoBytes": 0, "txKBitrate": 0, "rxKBitrate": 0, "txAudioKBitrate": 0, "rxAudioKBitrate": 0, "txVideoKBitrate": 0, "rxVideoKBitrate": 0, "lastmileDelay": 0, "txPacketLossRate": 0, "rxPacketLossRate": 0, "userCount": 0, "cpuAppUsage": 0, "cpuTotalUsage": 0.0, "gatewayRtt": 0, "memoryAppUsageRatio": 0.0, "memoryTotalUsageRatio": 0.0, "memoryAppUsageInKbytes": 0}
 ```
 
-26.通话中每个用户的网络上下行 last mile 质量报告回调(onNetworkQuality)
+30.通话中每个用户的网络上下行 last mile 质量报告回调(onNetworkQuality)
 ```
 {"engineEvent": "onNetworkQuality", "uid": "123", "txQuality": 0, "rxQuality": 0}
 ```
 
-27.本地视频流统计信息回调(onLocalVideoStats)
+31.本地视频流统计信息回调(onLocalVideoStats)
 ```
 {"engineEvent": "onLocalVideoStats", "sentBitrate": 0, "sentFrameRate": 0, "encoderOutputFrameRate": 0, "rendererOutputFrameRate": 0, "sentTargetBitrate": 0, "sentTargetFrameRate": 0, "qualityAdaptIndication": 0, "encodedBitrate": 0, "encodedFrameWidth": 640, "encodedFrameHeight": 480, "encodedFrameCount": 0, "codecType": 0}
 ```
 
-28.通话中本地音频流的统计信息回调(onLocalAudioStats)
+32.通话中本地音频流的统计信息回调(onLocalAudioStats)
 ```
 {"engineEvent": "onLocalAudioStats", "numChannels": 0, "sentSampleRate": 0, "sentBitrate": 0}
 ```
 
-29.通话中远端视频流的统计信息回调(onRemoteVideoStats)
+33.通话中远端视频流的统计信息回调(onRemoteVideoStats)
 ```
 {"engineEvent": "onRemoteVideoStats", "uid": "123", "delay": 0, "width": 480, "height": 640, "receivedBitrate": 0, "decoderOutputFrameRate": 0, "rendererOutputFrameRate": 0, "packetLossRate": 0, "rxStreamType": 0, "totalFrozenTime": 0, "frozenRate": 0}
 
 ```
 
-30.本地音乐文件播放已结束回调(onAudioMixingFinished)
+34.本地音乐文件播放已结束回调(onAudioMixingFinished)
 ```
 {"engineEvent": "onAudioMixingFinished"}
 ```
 
-31.本地音效文件播放已结束回调(onAudioEffectFinished)
+35.本地音效文件播放已结束回调(onAudioEffectFinished)
 ```
 {"engineEvent": "onAudioEffectFinished", "soundId": 6060}
 ```
 
-32.RTMP 推流状态发生改变回调(onRtmpStreamingStateChanged)
+36.RTMP 推流状态发生改变回调(onRtmpStreamingStateChanged)
 ```
 {"engineEvent": "onRtmpStreamingStateChanged", "url": "", "state": 0, "errorCode": 0}
 ```
 
-33.RTMP 推流事件回调(onRtmpStreamingEvent)
+37.RTMP 推流事件回调(onRtmpStreamingEvent)
 ```
 {"engineEvent": "onRtmpStreamingEvent", "url": "", "eventCode": 0}
 ```
 
-34.开启旁路推流的结果回调(onStreamPublished)
+38.开启旁路推流的结果回调(onStreamPublished)
 ```
 {"engineEvent": "onStreamPublished", "url": "", "errorCode": 0}
 ```
 
-35.停止旁路推流的结果回调(onStreamUnpublished)
+39.停止旁路推流的结果回调(onStreamUnpublished)
 ```
 {"engineEvent": "onStreamUnpublished", "url": ""}
 ```
 
-36.旁路推流设置被更新回调(onTranscodingUpdated)
+40.旁路推流设置被更新回调(onTranscodingUpdated)
 ```
 {"engineEvent": "onTranscodingUpdated"}
 ```
 
-37.输入外部视频流状态回调(onStreamInjectedStatus)
+41.输入外部视频流状态回调(onStreamInjectedStatus)
 ```
 {"engineEvent": "onStreamInjectedStatus", "url": "", "uid": "123", "status": 0}
 ```
 
-38.音视频流回退事件回调(onRemoteSubscribeFallbackToAudioOnly)
+42.音视频流回退事件回调(onRemoteSubscribeFallbackToAudioOnly)
 ```
 {"engineEvent": "onRemoteSubscribeFallbackToAudioOnly", "isFallbackOrRecover": true, "uid": "123"}
 ```
 
-39.媒体设备事件回调(onAudioRouteChanged)
+43.媒体设备事件回调(onAudioRouteChanged)
 ```
 {"engineEvent": "onAudioRouteChanged", "routing": 0}
 ```
 
-40.报告本地人脸检测结果(onFacePositionChanged)
+44.报告本地人脸检测结果(onFacePositionChanged)
 ```
 {"engineEvent": "onFacePositionChanged", "width": 640, "height": 480, "faces": facesArr}
 ```
 
-41.跨频道媒体流转发状态发生改变回调(onChannelMediaRelayStateChanged)
+45.跨频道媒体流转发状态发生改变回调(onChannelMediaRelayStateChanged)
 ```
 {"engineEvent": "onChannelMediaRelayStateChanged", "state": 0, "error": 0}
 ```
 
-42.跨频道媒体流转发事件回调(onChannelMediaRelayEvent)
+46.跨频道媒体流转发事件回调(onChannelMediaRelayEvent)
 ```
 {"engineEvent": "onChannelMediaRelayEvent", "event": 0}
 ```
 
-43.已完成远端视频首帧解码回调(onFirstRemoteVideoDecoded)
+47.已完成远端视频首帧解码回调(onFirstRemoteVideoDecoded)
 ```
 {"engineEvent": "onFirstRemoteVideoDecoded", "uid": "123", "width": 640.0, "height": 480.0, "elapsed": 0}
 ```
 
-44.已接收远端音频首帧的回调(onFirstRemoteAudioFrame)
+48.已接收远端音频首帧的回调(onFirstRemoteAudioFrame)
 ```
 {"engineEvent": "onFirstRemoteAudioFrame", "uid": "123", "elapsed": 0}
 ```
 
-45.已解码远端音频首帧的回调(onFirstRemoteAudioDecoded)
+49.已解码远端音频首帧的回调(onFirstRemoteAudioDecoded)
 ```
 {"engineEvent": "onFirstRemoteAudioDecoded", "uid": "123", "elapsed": 0}
 ```
 
-46.远端用户暂停/重新发送视频回调(onUserMuteVideo)
+50.远端用户暂停/重新发送视频回调(onUserMuteVideo)
 ```
 {"engineEvent": "onUserMuteVideo", "uid": "123", "muted": true}
 ```
 
-47.远端用户音频静音回调(onUserMuteAudio)
+51.远端用户音频静音回调(onUserMuteAudio)
 ```
 {"engineEvent": "onUserMuteAudio", "uid": "123", "muted": true}
 ```
 
-48.其他用户启用/关闭视频回调(onUserEnableVideo)
+52.其他用户启用/关闭视频回调(onUserEnableVideo)
 ```
 {"engineEvent": "onUserEnableVideo", "uid": "123", "enabled": true}
 ```
 
-49.其他用户启用/关闭本地视频回调(onUserEnableLocalVideo)
+53.其他用户启用/关闭本地视频回调(onUserEnableLocalVideo)
 ```
 {"engineEvent": "onUserEnableLocalVideo", "uid": "123", "enabled": true}
 ```
 
-50.麦克风状态已改变回调(onMicrophoneEnabled)
+54.麦克风状态已改变回调(onMicrophoneEnabled)
 ```
 {"engineEvent": "onMicrophoneEnabled", "enabled": true}
 ```
 
-51.网络连接中断回调(onConnectionInterrupted)
+55.网络连接中断回调(onConnectionInterrupted)
 ```
 {"engineEvent": "onConnectionInterrupted"}
 ```
 
-52.连接已被禁止回调(onConnectionBanned)
+56.连接已被禁止回调(onConnectionBanned)
 ```
 {"engineEvent": "onConnectionBanned"}
 ```
 
-53.通话中远端音频流传输的统计信息回调(onRemoteAudioTransportStats)
+57.通话中远端音频流传输的统计信息回调(onRemoteAudioTransportStats)
 ```
 {"engineEvent": "onRemoteAudioTransportStats", "uid": "123", "delay": 0, "lost": 0, "rxKBitRate": 0}
 ```
 
-54.通话中远端视频流传输的统计信息回调(onRemoteVideoTransportStats)
+58.通话中远端视频流传输的统计信息回调(onRemoteVideoTransportStats)
 ```
 {"engineEvent": "onRemoteVideoTransportStats", "uid": "123", "delay": 0, "lost": 0, "rxKBitRate": 0}
 ```
 
-55.远端音频质量回调(onAudioQuality)
+59.远端音频质量回调(onAudioQuality)
 ```
 {"engineEvent": "onAudioQuality", "uid": "123", "quality": 0, "delay": 0, "lost": 0}
 ```
 
-56.摄像头就绪回调(onCameraReady)
+60.摄像头就绪回调(onCameraReady)
 ```
 {"engineEvent": "onCameraReady"}
 ```
 
-57.发生错误回调(onVideoStopped)
+61.发生错误回调(onVideoStopped)
 ```
 {"engineEvent": "onVideoStopped"}
 ```
