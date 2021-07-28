@@ -81,6 +81,11 @@ setDefaultMuteAllRemoteVideoStreams | muted(bool) | 设置默认情况下是否�
 setCameraTorchOn | isOn(bool) | 是否开启闪光灯
 isCameraTorchSupported | 无 | 是否支持闪光灯
 setVideoEncoderConfiguration | width(int)、height(int)、frameRate(int)、bitrate(int)、orientationMode(int) | 设置视频编码配置
+addPublishStreamUrl | url(string)、transcodingEnabled(bool) | 增加旁路推流地址 
+removePublishStreamUrl | url(string) | 删除旁路推流地址 
+setLiveTranscoding | transcoding(LiveTranscoding) | 设置直播转码参数 
+
+
 
 #### callBack
 
@@ -279,6 +284,7 @@ setupRemoteVideo | uid(string)、channelId(string)、renderMode(int)、mirrorMod
 ```
 
 36.RTMP 推流状态发生改变回调(onRtmpStreamingStateChanged)
+
 ```
 {"engineEvent": "onRtmpStreamingStateChanged", "url": "", "state": 0, "errorCode": 0}
 ```
