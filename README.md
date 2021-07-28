@@ -283,22 +283,26 @@ setupRemoteVideo | uid(string)、channelId(string)、renderMode(int)、mirrorMod
 {"engineEvent": "onRtmpStreamingStateChanged", "url": "", "state": 0, "errorCode": 0}
 ```
 
-37.RTMP 推流事件回调(onRtmpStreamingEvent)
+37.~~RTMP 推流事件回调(onRtmpStreamingEvent)已废弃~~
+
 ```
 {"engineEvent": "onRtmpStreamingEvent", "url": "", "eventCode": 0}
 ```
 
-38.开启旁路推流的结果回调(onStreamPublished)
+38.~~开启旁路推流的结果回调(onStreamPublished)已废弃~~
+
 ```
 {"engineEvent": "onStreamPublished", "url": "", "errorCode": 0}
 ```
 
-39.停止旁路推流的结果回调(onStreamUnpublished)
+39.~~停止旁路推流的结果回调(onStreamUnpublished)已废弃~~
+
 ```
 {"engineEvent": "onStreamUnpublished", "url": ""}
 ```
 
 40.旁路推流设置被更新回调(onTranscodingUpdated)
+
 ```
 {"engineEvent": "onTranscodingUpdated"}
 ```
