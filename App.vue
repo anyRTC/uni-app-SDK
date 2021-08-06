@@ -1,21 +1,11 @@
 <script>
 	export default {
 		onLaunch: function() {
+			// 锁定竖屏
+			plus.screen.lockOrientation('portrait-primary');
+			// 相机、麦克风权限
+			this.$Utils.equipment();
 			console.log('App Launch');
-			//摄像头权限
-			uni.authorize({
-			    scope: 'scope.camera',
-			    success() {
-			        uni.getLocation()
-			    }
-			})
-			//录音权限
-			uni.authorize({
-			    scope: 'scope.record',
-			    success() {
-			        uni.getLocation()
-			    }
-			})
 		},
 		onShow: function() {
 			console.log('App Show')
