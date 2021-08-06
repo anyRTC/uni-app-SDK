@@ -1,0 +1,88 @@
+<template>
+	<view class="loading" :style="`margin-top: ${mt}rpx;`">
+		<view class="obj" :style="`background-color: ${color};`" ref="obj1"></view>
+		<view class="obj" :style="`margin-left: 12rpx; margin-right: 12rpx; background-color: ${color};`" ref="obj2"></view>
+		<view class="obj" :style="`background-color: ${color};`" ref="obj3"></view>
+	</view>
+</template>
+
+<script>
+	const animation = weex.requireModule('animation')
+
+	export default {
+		name: 'my-loading',
+		props: {
+			// 小球颜色
+			color: {
+				type: String,
+				default: '#0081FF'
+			},
+			// 距离顶部高度
+			mt: {
+				type: [String, Number],
+				default: 40
+			}
+		},
+		created() {
+			// 定时器执行前，先执行一次，让整个动画过程更流畅
+			setTimeout(() => {
+				this.createAnimation()
+			}, 50)
+			// 执行定时器
+			setInterval(() => {
+				this.createAnimation()
+			}, 1100)
+		},
+		methods: {
+			createAnimation() {
+				this.run(this.$refs.obj1)
+				setTimeout(() => {
+					this.run(this.$refs.obj2)
+				}, 300)
+				setTimeout(() => {
+					this.run(this.$refs.obj3)
+				}, 600)
+			},
+			transition(el, options, duration, delay = 0) {
+				return new Promise((resolve) => {
+					animation.transition(el, {
+						duration,
+						delay,
+						timingFunction: 'linear',
+						needLayout: false,
+						...options,
+					}, resolve)
+				})
+			},
+			run(el) {
+				this.transition(el, {
+					styles: {
+						transform: 'scale(0.5)'
+					}
+				}, 500, 0).then(() => {
+					this.transition(el, {
+						styles: {
+							transform: 'scale(1)'
+						}
+					}, 500, 0)
+				})
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+	.loading {
+		width: 750rpx;
+		height: 30rpx;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.obj {
+		width: 30rpx;
+		height: 30rpx;
+		border-radius: 100rpx;
+	}
+</style>
