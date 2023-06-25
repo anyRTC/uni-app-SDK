@@ -43,6 +43,7 @@ create | appId(String) | 创建rtc对象
 setCallBack | 无 | 注册sdk事件回调
 setParameters   | 咨询客服 | 通过 JSON 配置 SDK 提供技术预览或特别定制功能
 joinChannel | channelId(String)、uid(String)、token(String) | 加入房间
+renewToken | newToken(String) | 更新 Token
 enableAudio | 无 | 开启音频
 enableVideo | 无 | 开启视频
 disableAudio | 无 | 禁用音频
@@ -84,8 +85,9 @@ setVideoEncoderConfiguration | width(int)、height(int)、frameRate(int)、bitra
 addPublishStreamUrl | url(string)、transcodingEnabled(bool) | 增加旁路推流地址 
 removePublishStreamUrl | url(string) | 删除旁路推流地址 
 setLiveTranscoding | transcoding(LiveTranscoding) | 设置直播转码参数 
+setCameraCapturerConfiguration | width(int)、height(int)、cameraDirection(int) 0后置 1前置 | 设置摄像头采集偏好 
 
-
+[更多 API 调用详见anyRTC文档](https://docs.anyrtc.io/cn/Live/api-ref/rtc_uniapp/uni_rtc_engine)
 
 #### callBack
 
